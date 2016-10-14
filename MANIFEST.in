@@ -1,0 +1,4 @@
+include README.rst
+include LICENSE
+include packaging/VERSION
+recursive-include packaging *.txt
