@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/wolcomm/bgpq3d.svg?branch=master
+    :target: https://travis-ci.org/wolcomm/bgpq3d
+
 bgpq3d
 ======
 
