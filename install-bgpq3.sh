@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 set -ex
 wget https://github.com/snar/bgpq3/archive/v0.1.32.tar.gz
 tar -xzvf v0.1.32
