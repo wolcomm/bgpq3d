@@ -37,11 +37,11 @@ class Bgpq3(object):
             obj = self.args.object
         if not isinstance(obj, str):
             raise TypeError
-        cmd = [
-            self.bin_path,
-            "-h", self.host,
-            "-4Aj",
-            obj
-        ]
-        out = subprocess.check_output(cmd)
-        return json.loads(out)
+        output = dict()
+        cmds = {
+            'ipv4': [self.bin_path, "-h", self.host, "-l", "ipv4", "-4Aj", obj],
+            'ipv6': [self.bin_path, "-h", self.host, "-l", "ipv6", "-6Aj", obj]
+        }
+        for key in cmds:
+            output.update(json.loads(subprocess.check_output(cmds[key])))
+        return output
