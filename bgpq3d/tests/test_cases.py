@@ -9,15 +9,15 @@ class TestOutput(TestCase):
 
     def test_01_dependency(self):
         path = which('bgpq3')
-        self.assertTrue(isinstance(path, str))
+        self.assertIsInstance(path, str, msg="bgpq3 executable not found in PATH")
 
     def test_02_autnum(self):
         cli = ['-f', self.config_path, '--object', 'AS37271']
-        self.assertTrue(isinstance(self._get_output(cli=cli), dict))
+        self.assertIsInstance(self._get_output(cli=cli), dict, msg="didn't get a dict object")
 
     def test_03_as_set(self):
         cli = ['-f', self.config_path, '--object', 'AS37271:AS-CUSTOMERS']
-        self.assertTrue(isinstance(self._get_output(cli=cli), dict))
+        self.assertIsInstance(self._get_output(cli=cli), dict, msg="didn't get a dict object")
 
     def _get_output(self, cli=None):
         args = parser.Parser(args=cli).args
