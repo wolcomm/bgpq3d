@@ -1,5 +1,6 @@
 import json
 import subprocess
+import re
 from whichcraft import which
 from bgpq3d import configuration
 
@@ -31,6 +32,14 @@ class Bgpq3(object):
     @property
     def bin_path(self):
         return self.config.get("bin_path") or which("bgpq3")
+
+    def version(self):
+        regexp = re.compile(r'^bgpq3 version: (\w+)$')
+        for line in subprocess.check_output(self.bin_path).splitlines():
+            m = regexp.match(line)
+            if m:
+                return m.groups(1)
+        return None
 
     def pl(self, obj=None):
         if not obj:
