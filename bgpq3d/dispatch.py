@@ -18,7 +18,12 @@ class Dispatcher(object):
             self.dispatch = self.one_shot
 
     def one_shot(self):
-        return self._bgpq3.pl(self._object)
+        try:
+            output = self.bgpq3.pl(self.object)
+        except Exception:
+            return False
+        print output
+        return True
 
     @property
     def config(self):
@@ -35,3 +40,11 @@ class Dispatcher(object):
     @property
     def path(self):
         return self._path
+
+    @property
+    def bgpq3(self):
+        return self._bgpq3
+
+    @property
+    def object(self):
+        return self._object or None
