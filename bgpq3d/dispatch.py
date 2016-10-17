@@ -1,10 +1,10 @@
 import daemonize
 from argparse import Namespace
-from bgpq3d import configuration, bgpq3
+from bgpq3d import configuration, bgpq3, output
 
 
 class Dispatcher(object):
-    def __init__(self, args=None):
+    def __init__(self, args=None, test=False):
         if not isinstance(args, Namespace):
             raise TypeError("%s not of type %s" % (args, Namespace))
         config_path = args.config_path or None
@@ -13,17 +13,14 @@ class Dispatcher(object):
         self._port = args.port or self.config.get("port")
         self._path = self.config.get("bgpq3_path")
         self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
+        self._output_class = output.TestOutput if test else output.DumpOutput
         if args.object:
             self._object = args.object
             self.dispatch = self.one_shot
 
     def one_shot(self):
-        try:
-            output = self.bgpq3.pl(self.object)
-        except Exception:
-            return False
-        print output
-        return True
+        data = self.bgpq3.pl(self.object)
+        return self._output_class(data=data).output()
 
     @property
     def config(self):

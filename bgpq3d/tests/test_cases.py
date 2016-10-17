@@ -21,6 +21,6 @@ class TestOutput(TestCase):
 
     def _get_output(self, cli=None):
         args = parser.Parser(args=cli).args
-        dispatcher = dispatch.Dispatcher(args=args)
+        dispatcher = dispatch.Dispatcher(args=args, test=True)
         output = dispatcher.dispatch()
         return output
