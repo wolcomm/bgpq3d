@@ -32,6 +32,7 @@ setup(
         exclude=[]
     ),
     entry_points={
+        'console_scripts': ['bgpq3d=bgpq3d.command_line:main']
     },
     include_package_data=True,
 

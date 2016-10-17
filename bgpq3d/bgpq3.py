@@ -1,0 +1,44 @@
+import json
+import subprocess
+from whichcraft import which
+from bgpq3d import configuration
+
+
+class Bgpq3(object):
+    def __init__(self, args=None):
+        self._args = args
+        if self._args:
+            path = self._args.path
+        else:
+            path = None
+        self._config = configuration.Config(path=path)
+
+    @property
+    def args(self):
+        return self._args
+
+    @property
+    def config(self):
+        return self._config
+
+    @property
+    def host(self):
+        return "%s:%s" % (self.config.get("host"), self.config.get("port"))
+
+    @property
+    def bin_path(self):
+        return (self.config.get("bin_path") or which("bgpq3"))
+
+    def pl(self, obj=None):
+        if not obj:
+            obj = self.args.object
+        if not isinstance(obj, str):
+            raise TypeError
+        cmd = [
+            self.bin_path,
+            "-h", self.host,
+            "-4Aj",
+            obj
+        ]
+        out = subprocess.check_output(cmd)
+        return json.loads(out)
