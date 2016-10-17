@@ -14,10 +14,11 @@ class Dispatcher(object):
         self._path = self.config.get("bgpq3_path")
         self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
         if args.object:
+            self._object = args.object
             self.dispatch = self.one_shot
 
-    def one_shot(self, obj):
-        return self._bgpq3.pl(obj)
+    def one_shot(self):
+        return self._bgpq3.pl(self._object)
 
     @property
     def config(self):
