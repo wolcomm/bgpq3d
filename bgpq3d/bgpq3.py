@@ -8,10 +8,10 @@ class Bgpq3(object):
     def __init__(self, args=None):
         self._args = args
         if self._args:
-            path = self._args.path
+            config_path = self._args.config_path
         else:
-            path = None
-        self._config = configuration.Config(path=path)
+            config_path = None
+        self._config = configuration.Config(config_path=config_path)
 
     @property
     def args(self):
@@ -27,7 +27,7 @@ class Bgpq3(object):
 
     @property
     def bin_path(self):
-        return (self.config.get("bin_path") or which("bgpq3"))
+        return self.config.get("bin_path") or which("bgpq3")
 
     def pl(self, obj=None):
         if not obj:
