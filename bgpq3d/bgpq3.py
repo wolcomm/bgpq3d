@@ -23,11 +23,17 @@ class Bgpq3(object):
 
     @property
     def host(self):
-        return "%s:%s" % (self.config.get("host"), self.config.get("port"))
+        if self.config:
+            return "%s:%s" % (self.config.get("host"), self.config.get("port"))
+        else:
+            return "whois.radb.net"
 
     @property
     def bin_path(self):
-        return self.config.get("bin_path") or which("bgpq3")
+        if self.config:
+            return self.config.get("bin_path")
+        else:
+            return  which("bgpq3")
 
     def pl(self, obj=None):
         if not obj:

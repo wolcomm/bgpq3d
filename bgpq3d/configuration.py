@@ -7,8 +7,11 @@ class Config(object):
         config = ConfigParser.SafeConfigParser()
         if not config_path or not os.path.isfile(config_path):
             config_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'bgpq3d.ini')
-        config.read(config_path)
-        self._config = config
+        try:
+            config.read(config_path)
+            self._config = config
+        except ConfigParser.Error:
+            self._config = None
 
     def get(self, key=None):
         try:
