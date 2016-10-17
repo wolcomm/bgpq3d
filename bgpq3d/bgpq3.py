@@ -35,7 +35,12 @@ class Bgpq3(object):
 
     def version(self):
         regexp = re.compile(r'^bgpq3 version: (\w+)$')
-        for line in subprocess.check_output(self.bin_path).splitlines():
+        output = None
+        try:
+            output = subprocess.check_output(self.bin_path)
+        except subprocess.CalledProcessError:
+            pass
+        for line in output.splitlines():
             m = regexp.match(line)
             if m:
                 return m.groups(1)
