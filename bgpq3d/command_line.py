@@ -1,9 +1,10 @@
-from bgpq3d import parser, bgpq3
+from bgpq3d import parser, dispatch
 
 
 def main():
     args = parser.Parser().args
-    output = bgpq3.Bgpq3(args=args).pl()
+    dispatcher = dispatch.Dispatcher(args=args)
+    output = dispatcher.dispatch()
     print output
 
 if __name__ == "__main__":

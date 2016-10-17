@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
 from whichcraft import which
-from bgpq3d import parser, bgpq3
+from bgpq3d import parser, dispatch
 
 
 class TestOutput(TestCase):
@@ -21,5 +21,6 @@ class TestOutput(TestCase):
 
     def _get_output(self, cli=None):
         args = parser.Parser(args=cli).args
-        output = bgpq3.Bgpq3(args=args).pl()
+        dispatcher = dispatch.Dispatcher(args=args)
+        output = dispatcher.dispatch()
         return output
