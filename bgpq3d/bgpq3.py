@@ -30,10 +30,7 @@ class Bgpq3(object):
 
     @property
     def bin_path(self):
-        if self.config:
-            return self.config.get("bin_path")
-        else:
-            return which("bgpq3")
+        return self.config.get("bin_path") or which("bgpq3")
 
     def pl(self, obj=None):
         if not obj:
