@@ -2,3 +2,4 @@ include README.rst
 include LICENSE
 include packaging/VERSION
 recursive-include packaging *.txt
+recursive-include bgpq3d *.ini
