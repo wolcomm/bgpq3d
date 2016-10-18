@@ -1,7 +1,11 @@
-import daemonize
 from argparse import Namespace
 from bgpq3d import configuration, bgpq3, output
 
+try:
+    import daemonize
+    can_daemonize = True
+except ImportError:
+    can_daemonize = False
 
 class Dispatcher(object):
     def __init__(self, args=None, test=False):
@@ -12,7 +16,10 @@ class Dispatcher(object):
         self._host = args.host or self.config.get("host")
         self._port = args.port or self.config.get("port")
         self._path = self.config.get("bgpq3_path")
-        self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
+        if not args.dummy:
+            self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
+        else:
+            self._bgpq3 = bgpq3.Dummy(host=self.host, port=self.port, path=self.path)
         self._output_class_name = self.config.get("output_class_name") or "DumpOutput"
         self._output_class = output.TestOutput if test else getattr(output, self.output_class_name)
         if args.object:

@@ -28,3 +28,14 @@ class Bgpq3(object):
         for key in cmds:
             output.update(json.loads(subprocess.check_output(cmds[key])))
         return output
+
+
+class Dummy(Bgpq3):
+    def pl(self, obj=None):
+        if not obj or not isinstance(obj, str):
+            return None
+        output = {
+            'ipv4': [self.path, "-h", self.host, "-l", "ipv4", "-4Aj", obj],
+            'ipv6': [self.path, "-h", self.host, "-l", "ipv6", "-6Aj", obj]
+        }
+        return output

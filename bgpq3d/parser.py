@@ -10,6 +10,7 @@ class Parser(object):
         parser.add_argument('--host', action='store', type=str, help="irrd host to connect to")
         parser.add_argument('--port', action='store', type=int, help="irrd service tcp port")
         parser.add_argument('--object', action='store', type=str, help="print prefix list for OBJECT and exit")
+        parser.add_argument('--dummy', action='store_true', help="use dummy bgpq3 object for testing")
         self._parser = parser
         self._args = args
 
