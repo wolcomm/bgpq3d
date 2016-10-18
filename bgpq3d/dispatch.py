@@ -13,9 +13,8 @@ class Dispatcher(object):
         self._port = args.port or self.config.get("port")
         self._path = self.config.get("bgpq3_path")
         self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
-        # self._output_class = output.TestOutput if test else output.DumpOutput
         self._output_class_name = self.config.get("output_class_name") or "DumpOutput"
-        self._output_class = output.TestOutput if test else output[self.output_class_name]
+        self._output_class = output.TestOutput if test else getattr(output, self.output_class_name)
         if args.object:
             self._object = args.object
             self.dispatch = self.one_shot
