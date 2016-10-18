@@ -37,8 +37,6 @@ class IosOutput(OutputBase):
         return None
 
     def line(self, name='Prefix-List', af=None, entry=None, i=None):
-        if not isinstance(af, str):
-            raise ValueError("%s not of type %s" % (af, str))
         if not isinstance(entry, dict):
             raise ValueError("%s not of type %s" % (entry, dict))
         if not isinstance(i, int):
