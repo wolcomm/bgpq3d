@@ -10,7 +10,7 @@ class Bgpq3(object):
         self._path = path or which("bgpq3")
 
     @property
-    def host(self):
+    def target(self):
         return "%s:%s" % (self._host, self._port)
 
     @property
@@ -22,8 +22,8 @@ class Bgpq3(object):
             return None
         output = dict()
         cmds = {
-            'ipv4': [self.path, "-h", self.host, "-l", "ipv4", "-4Aj", obj],
-            'ipv6': [self.path, "-h", self.host, "-l", "ipv6", "-6Aj", obj]
+            'ipv4': [self.path, "-h", self.target, "-l", "ipv4", "-4Aj", obj],
+            'ipv6': [self.path, "-h", self.target, "-l", "ipv6", "-6Aj", obj]
         }
         for key in cmds:
             output.update(json.loads(subprocess.check_output(cmds[key])))
@@ -35,7 +35,7 @@ class Dummy(Bgpq3):
         if not obj or not isinstance(obj, str):
             return None
         output = {
-            'ipv4': [self.path, "-h", self.host, "-l", "ipv4", "-4Aj", obj],
-            'ipv6': [self.path, "-h", self.host, "-l", "ipv6", "-6Aj", obj]
+            'ipv4': [self.path, "-h", self.target, "-l", "ipv4", "-4Aj", obj],
+            'ipv6': [self.path, "-h", self.target, "-l", "ipv6", "-6Aj", obj]
         }
         return output

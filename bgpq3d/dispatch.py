@@ -20,7 +20,7 @@ class Dispatcher(object):
             self._bgpq3 = bgpq3.Bgpq3(host=self.host, port=self.port, path=self.path)
         else:
             self._bgpq3 = bgpq3.Dummy(host=self.host, port=self.port, path=self.path)
-        self._output_class_name = self.config.get("output_class_name") or "JsonOutput"
+        self._output_class_name = args.output or self.config.get("output_class_name") or "JsonOutput"
         self._output_class = output.TestOutput if test else getattr(output, self.output_class_name)
         if args.object:
             self._object = args.object
