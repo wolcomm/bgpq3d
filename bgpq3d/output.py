@@ -15,15 +15,15 @@ class OutputBase(object):
         return None
 
 
-class DumpOutput(OutputBase):
-    def output(self):
-        print json.dumps(self.data, indent=4)
-        return None
-
-
 class TestOutput(OutputBase):
     def output(self):
         return self.data
+
+
+class JsonOutput(OutputBase):
+    def output(self):
+        print json.dumps(self.data, indent=4)
+        return None
 
 
 class IosOutput(OutputBase):
