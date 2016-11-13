@@ -22,8 +22,7 @@ class TestOutput(OutputBase):
 
 class JsonOutput(OutputBase):
     def output(self):
-        print json.dumps(self.data, indent=4)
-        return None
+        return json.dumps(self.data, indent=4)
 
 
 class IosOutput(OutputBase):
